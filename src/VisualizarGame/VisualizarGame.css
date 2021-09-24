@@ -1,0 +1,10 @@
+.Game{
+    width: 100vh;
+    background-color: green;
+    display: flex;
+}
+
+iframe{
+    display: flex;
+    margin: 5px;
+}

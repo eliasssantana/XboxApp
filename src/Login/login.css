@@ -1,0 +1,25 @@
+.adicionar{
+    width: 100vw;
+    color:green;
+    display: flex;
+    justify-content: center;
+}
+
+form{
+    margin-top: 30px;
+    width: 70%;
+    background-color: lawngreen;
+}
+
+input{
+    width: inherit;
+    line-height: 50px;
+    font-size: 20px;
+}
+
+input[type="submit"]{
+    background-color: rgb(109, 163, 29);
+    border: none;
+    width: 40%;
+    margin-top: 20px;
+}

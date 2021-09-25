@@ -2,13 +2,13 @@ import React, {useEffect,useState} from 'react';
 import { Link } from 'react-router-dom';
 import { Api} from '../Api/Api'
 import ReactLoading from 'react-loading'
-import "./GamesList.css"
-export default function GamesList(){
+
+export default function GenreList(){
     const [dados,setDados] = useState([]);
     const [loading, setLoading] = useState(true);
     useEffect(() => {
         const getGame = async() =>{
-            const response = await fetch(Api.readAllGamesUrl())
+            const response = await fetch(Api.readGenreUrl());
             const games = await response.json()
             setDados(games)
             setLoading(false)
@@ -18,18 +18,17 @@ export default function GamesList(){
     if(loading){
         return <ReactLoading className="loading" type={"spinningBubbles"} color={"green"} height={'20%'} width={'20%'}/>
     }
-    return(dados.map(item =>(
-        <div className="container">
-            <ul key={item.id}>
-                <Link to={`game/${item.id}`}>
-                    <li><img src={item.capa}/></li>
-                    <li>{item.descricao}</li>
-                    <li>{item.ano}</li>
-                    <li>{item.nota_imdb}</li>
-                </Link>
-                <Link to={`gameUpdate/${item.id}`}><button>Update</button></Link>
-            </ul>
-        </div> 
-    )))
+    return(
+        <>
+            <h1>Gêneros</h1>
+            <button><Link to="genre/create">Criar gênero</Link></button>
+            {dados.map((i) =>(
+                <ul key={i.id}>
+                    <li>{i.nome}</li>
+                    <li><Link to={`genre/${i.id}`}/>editar</li>
+                </ul>
+            ))}
+        </>
+        )
 
 }

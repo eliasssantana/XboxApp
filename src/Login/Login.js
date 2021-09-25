@@ -1,11 +1,11 @@
 import { Api} from '../Api/Api'
 import React from "react";
-import { useHistory } from 'react-router';
+import { Redirect, useHistory } from 'react-router';
 import "./login.css"
 export default function Login(props) {
 
     const history = useHistory()
-    const handleSubmit = async event => {
+    const handleSubmit = async(event) => {
         event.preventDefault();
 
         const email = event.target.email.value;
@@ -28,10 +28,14 @@ export default function Login(props) {
         const bodyResult = await response.json();
         console.log(bodyResult)
         localStorage.setItem("JWT", bodyResult.accessToken);
-
         props.history.push("/")
+        console.log("to aqui")
 
     };
+    // const clicked = () => {
+    //     props.history.push("/")
+    // }
+    
 
     return (
         <div className="adicionar">
@@ -66,6 +70,7 @@ export default function Login(props) {
                 <input
                     type="submit"
                     value="Login"
+                    // onClick={clicked}
                 />
             </form>
         </div>

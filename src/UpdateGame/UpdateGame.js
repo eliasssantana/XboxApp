@@ -1,12 +1,26 @@
-import { Api } from "../Api/Api";
-import { useHistory } from "react-router";
-import React from "react";
+import React, { useEffect, useState } from 'react'
+import { useParams, useHistory } from 'react-router';
+import { Api } from '../Api/Api';
 
-export default function AddGame() {
-
+export default function UpdateGame() {
+    const [jogo,setJogo] = useState({});
+    const [loading, setLoading] = useState(true);
+    const {id} = useParams()
     const history = useHistory()
 
-    const handleSubmit = async (event) => {
+
+    useEffect(() => {
+        const loadData = async() => {
+            const response = await fetch(Api.readByIdUrl(id));
+            const dado = await response.json();
+            console.log(dado)
+            setJogo(dado);
+            setLoading(false);
+        }
+        loadData()
+    }, [id])
+
+    const handleSubmit = async event => {
         event.preventDefault();
 
         const capa = event.target.capa.value;
@@ -15,6 +29,7 @@ export default function AddGame() {
         const nota = event.target.nota.value;
         const trailer = event.target.trailer.value;
         const gameplay = event.target.gameplay.value;
+        const genero = event.target.genero.value;
 
         const payload = {
             capa,
@@ -22,11 +37,15 @@ export default function AddGame() {
             ano,
             nota_imdb: nota,
             link_trailer: trailer,
-            link_gameplay: gameplay
-        }
+            link_gameplay: gameplay,
+            generos: {
+                nome: genero
+            }
 
-        const response = await fetch(Api.addGameUrl, {
-            method: "POST",
+        };
+
+        const response = await fetch(Api.UpdateGame, {
+            method: "PATH",
             headers: new Headers({
                 "Content-type": "application/json",
             }),
@@ -38,7 +57,10 @@ export default function AddGame() {
         history.push("/game")
 
     };
-    
+
+    if(!loading){
+        return <h1>Carregando...</h1>
+    }
 
     return (
         <div className="adicionar">
@@ -52,6 +74,7 @@ export default function AddGame() {
                     type="text"
                     id="capa"
                     name="capa"
+                    defaultValue={jogo.capa}
                 />
 
                 <br />
@@ -65,6 +88,7 @@ export default function AddGame() {
                     type="text"
                     id="descricao"
                     name="descricao"
+                    defaultValue={jogo.descricao}
                 />
 
                 <br />
@@ -76,6 +100,7 @@ export default function AddGame() {
                     type="number"
                     id="ano"
                     name="ano"
+                    defaultValue={jogo.ano}
                 />
 
                 <br />
@@ -87,6 +112,7 @@ export default function AddGame() {
                     type="number"
                     id="nota"
                     name="nota"
+                    defaultValue={jogo.nota_imdb}
                 />
                 <br/>
                 <label htmlFor="trailer">
@@ -98,6 +124,7 @@ export default function AddGame() {
                     type="text"
                     id="trailer"
                     name="trailer"
+                    defaultValue={jogo.trailer}
                 />
                 <br/>
                 <label htmlFor="gameplay">
@@ -108,8 +135,19 @@ export default function AddGame() {
                     type="text"
                     id="gameplay"
                     name="gameplay"
+                    defaultValue={jogo.gameplay}
                 />
 
+                <br/>
+                <label htmlFor="genero">
+                    Gênero:
+                </label>
+                <br />
+                <input
+                    type="text"
+                    id="genero"
+                    name="genero"
+                />
                 <input
                     type="submit"
                     value="Adicionar"

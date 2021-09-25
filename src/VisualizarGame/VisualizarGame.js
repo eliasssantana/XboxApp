@@ -30,10 +30,10 @@ export default function VisualizarGame() {
     return (
         <div className="Game">
             {Game.map(i => (
-                <>
-                    <iframe src={i.link_trailer}></iframe>
-                    <iframe src={i.link_gameplay}></iframe>
-                </>
+                <React.Fragment key={i.id}>
+                    <iframe title={i.id} src={i.link_trailer}>trailer</iframe>
+                    <iframe title={i.id} src={i.link_gameplay}>Gameplay</iframe>
+                </React.Fragment>
             ))}
                 
         </div>

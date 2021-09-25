@@ -10,6 +10,10 @@ import AddGame from './AddGame/AddGame'
 import VisualizarGame from './VisualizarGame/VisualizarGame'
 import CreateProfile from "./Profile/Profile";
 import ProfileList from "./Profile/SeeProfiles";
+import UpdateGame from "./UpdateGame/UpdateGame";
+import GenreList from "./readAllGenre/readAllGenre";
+import createGenre from "./readAllGenre/createGenre";
+import UpdateGenre from "./readAllGenre/updateGenre";
 
 export default function App() {
     const isAuthenticated = Boolean(localStorage.getItem("JWT"));
@@ -39,8 +43,14 @@ export default function App() {
                             path="/game/:id"
                             component={VisualizarGame}
                         />
+                        <Route path="/game/create" component={AddGame}/>
+                        <Route path="/gameUpdate/:id" component={UpdateGame}/>
                         <Route path="/perfil" component={CreateProfile}/>
-                        <Route exact={true} path="perfils/" component={ProfileList}/>
+                        <Route exact={true} path="/perfils" component={ProfileList}/>
+
+                        <Route path="/genre" component={GenreList}/>
+                        <Route path="/genre/create" component={createGenre}/>
+                        <Route path="/genre/:id" component={UpdateGenre}/>
                     </Switch>
                 </BrowserRouter>
             </div>

@@ -18,3 +18,9 @@ li{
     margin: auto;
     margin-top: 130px;
 }
+button{
+    background-color: green;
+    width: 20%;
+    border: none;
+    color: white;
+}

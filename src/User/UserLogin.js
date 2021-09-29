@@ -1,11 +1,10 @@
 import { Api } from "../Api/Api";
 import React from "react";
-import { Redirect } from "react-router";
 
-export default function AdicionarPersonagem(props) {
+export default function UserLogin(props) {
 
 
-    const handleSubmit = async e => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         const nome = e.target.nome.value;
@@ -13,13 +12,15 @@ export default function AdicionarPersonagem(props) {
         const cpf = e.target.cpf.value;
         const email = e.target.email.value;
         const senha = e.target.senha.value;
+        const isAdmin = true
 
         const payload = {
-            nome,
-            sobrenome,
-            cpf,
-            email,
-            senha  
+            nome: nome,
+            sobrenome: sobrenome,
+            cpf: cpf,
+            email: email,
+            senha: senha,
+            isAdmin: isAdmin
         };
 
         const response = await fetch(Api.createUserUrl, {
@@ -30,9 +31,9 @@ export default function AdicionarPersonagem(props) {
             body: JSON.stringify(payload),
         }),
 
-        const bodyResult = await response.json();
-
-        props.history.push("/login")
+        bodyResult = await response.json();
+        console.log(bodyResult)
+        props.history.push("/login");
 
     };
 
@@ -99,7 +100,6 @@ export default function AdicionarPersonagem(props) {
                 <input
                     type="submit"
                     value="Criar usuário"
-                    className="form__submit button button--success"
                 />
             </form>
         </div>

@@ -1,10 +1,17 @@
 import React from 'react'
-import GamesList from '../GamesList/GamesList'
+import {Link} from 'react-router-dom'
 
-export default function Homes() {
+export default function Homes(){
     return (
         <div>
-            <GamesList/>
+            <div className="container">
+                <div>
+                    <Link className="link" to='/login'>LOGIN</Link>
+                </div>
+                <div>
+                    <Link className="link" to='/addUser'>CADASTRO</Link>
+                </div>
+            </div>
         </div>
     )
 }

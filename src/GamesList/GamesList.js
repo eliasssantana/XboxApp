@@ -1,5 +1,6 @@
 import React, {useEffect,useState} from 'react';
 import { Link } from 'react-router-dom';
+import { Carousel, CarouseL } from 'react-bootstrap';
 import { Api} from '../Api/Api'
 import ReactLoading from 'react-loading'
 import "./GamesList.css"
@@ -20,7 +21,44 @@ export default function GamesList(){
     }
     return(dados.map(item =>(
         <div className="container">
-            <ul key={item.id}>
+            <Carousel>
+                <Carousel.Item>
+                    <img
+                    className="d-block w-100"
+                    src={item.capa}
+                    alt="First slide"
+                    />
+                    <Carousel.Caption>
+                    <h3>First slide label</h3>
+                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                    </Carousel.Caption>
+                </Carousel.Item>
+                <Carousel.Item>
+                    <img
+                    className="d-block w-100"
+                    src={item.capa}
+                    alt="Second slide"
+                    />
+
+                    <Carousel.Caption>
+                    <h3>Second slide label</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    </Carousel.Caption>
+                </Carousel.Item>
+                <Carousel.Item>
+                    <img
+                    className="d-block w-100"
+                    src={item.capa}
+                    alt="Third slide"
+                    />
+
+                    <Carousel.Caption>
+                    <h3>Third slide label</h3>
+                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                    </Carousel.Caption>
+                </Carousel.Item>
+                </Carousel>
+            {/* <ul key={item.id}>
                 <Link to={`game/${item.id}`}>
                     <li><img src={item.capa}/></li>
                     <li>{item.descricao}</li>
@@ -28,7 +66,7 @@ export default function GamesList(){
                     <li>{item.nota_imdb}</li>
                 </Link>
                 <Link to={`gameUpdate/${item.id}`}><button>Update</button></Link>
-            </ul>
+            </ul> */}
         </div> 
     )))
 

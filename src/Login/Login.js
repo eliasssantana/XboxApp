@@ -17,7 +17,7 @@ export default function Login(props) {
         };
         
         console.log(payload)
-        const response = await fetch(Api.loginUrl, {
+        const response = await fetch("http://localhost:5000/login", {
             method: "POST",
             headers: new Headers({
                 "Content-type": "application/json",
@@ -28,14 +28,10 @@ export default function Login(props) {
         const bodyResult = await response.json();
         console.log(bodyResult)
         localStorage.setItem("JWT", bodyResult.accessToken);
-        props.history.push("/")
+        props.history.push("/gameList")
         console.log("to aqui")
 
     };
-    // const clicked = () => {
-    //     props.history.push("/")
-    // }
-    
 
     return (
         <div className="adicionar">

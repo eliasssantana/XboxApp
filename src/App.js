@@ -14,6 +14,7 @@ import UpdateGame from "./UpdateGame/UpdateGame";
 import GenreList from "./readAllGenre/readAllGenre";
 import createGenre from "./readAllGenre/createGenre";
 import UpdateGenre from "./readAllGenre/updateGenre";
+import UserLogin from "./User/UserLogin";
 
 export default function App() {
     const isAuthenticated = Boolean(localStorage.getItem("JWT"));
@@ -28,6 +29,7 @@ export default function App() {
                         <Route exact path="/" component={Home}/>
 
                         <Route path="/login" exact={true} component={Login} />
+                        <Route path="/addUser" exact component={UserLogin} />
 
                         <GuardedRoute
                             path="/game"
@@ -36,7 +38,7 @@ export default function App() {
                         />
 
                         <Route
-                            path="/game"
+                            path="/gameList"
                             component={GamesList}
                         />
                         <Route

@@ -1,10 +1,9 @@
-import { Api} from '../Api/Api'
-import React from "react";
-import { Redirect, useHistory } from 'react-router';
+import React, {useState, createContext} from "react";
 import "./login.css"
+export const Contexto = createContext();
 export default function Login(props) {
-
-    const history = useHistory()
+    const [notFound, setNotFound] = useState(false)
+    const [result, setResult] = useState([])
     const handleSubmit = async(event) => {
         event.preventDefault();
 
@@ -26,12 +25,24 @@ export default function Login(props) {
         });
 
         const bodyResult = await response.json();
+        setResult(bodyResult);
         console.log(bodyResult)
-        localStorage.setItem("JWT", bodyResult.accessToken);
-        props.history.push("/gameList")
-        console.log("to aqui")
+        if(bodyResult.accessToken){
+            localStorage.setItem("JWT", bodyResult.accessToken);
+            props.history.push("/perfis")
+        }
+        else{
+            setNotFound(true)
+            setTimeout(() => {
+                props.history.push("/login")
+                setNotFound(false)
+            }, 3000)
+        }
 
     };
+    if(notFound){
+        return<h1>User Not Found</h1>
+    }
 
     return (
         <div className="adicionar">

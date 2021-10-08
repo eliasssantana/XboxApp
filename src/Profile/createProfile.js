@@ -1,8 +1,7 @@
-import React, {useHistory} from 'react'
+import React from 'react'
 import {Api} from '../Api/Api'
 
-function CreateProfile(){
-    const history = useHistory()
+function CreateProfile(props){
     const handleSubmit = async event => {
         event.preventDefault();
 
@@ -11,7 +10,8 @@ function CreateProfile(){
 
         const payload = {
             titulo,
-            imagem
+            imagem,
+            usuarioId: 21
         };
 
         const response = await fetch(Api.createProfile, {
@@ -24,7 +24,7 @@ function CreateProfile(){
 
         const bodyResult = await response.json();
 
-        history.push("/perfils")
+        props.history.push("/perfils")
 
     };
 

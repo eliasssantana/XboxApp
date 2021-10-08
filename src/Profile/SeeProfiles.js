@@ -9,8 +9,8 @@ export default function ProfileList(){
     useEffect(() => {
         const getGame = async() =>{
             const response = await fetch(Api.readProfileUrl())
-            const games = await response.json()
-            setDados(games)
+            const profiles = await response.json()
+            setDados(profiles)
             setLoading(false)
         }
         getGame()
@@ -21,11 +21,9 @@ export default function ProfileList(){
     return(dados.map(item =>(
         <div className="container">
             <ul key={item.id}>
-                <Link to={`game/${item.id}`}>
-                    <li><img src={item.capa}/></li>
-                    <li>{item.descricao}</li>
-                    <li>{item.ano}</li>
-                    <li>{item.nota_imdb}</li>
+                <Link to={`/perfil/${item.id}`}>
+                    <li><img src={item.imagem} alt={item.id}/></li>
+                    <li>{item.titulo}</li>
                 </Link>
             </ul>
         </div> 

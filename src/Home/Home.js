@@ -1,15 +1,14 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-
+import "./Home.css"
 export default function Homes(){
     return (
         <div>
             <div className="container">
-                <div>
+                <h1 className="welcome">Welcome</h1> 
+                <div className="block">
                     <Link className="link" to='/login'>LOGIN</Link>
-                </div>
-                <div>
-                    <Link className="link" to='/addUser'>CADASTRO</Link>
+                    <Link className="link" to='/usuario/create'>CADASTRO</Link>
                 </div>
             </div>
         </div>

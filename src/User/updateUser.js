@@ -1,7 +1,6 @@
-import { Api } from "../Api/Api";
 import React from "react";
 
-export default function UserLogin(props) {
+export default function UpdateUser(props) {
 
 
     const handleSubmit = async (e) => {
@@ -24,7 +23,7 @@ export default function UserLogin(props) {
         };
 
         const response = await fetch("http://localhost:5000/users", {
-            method: "POST",
+            method: "PATH",
             headers: new Headers({
                 "Content-type": "application/json",
             }),

@@ -8,13 +8,17 @@ import Header from "./Header/Header";
 import Home from './Home/Home'
 import AddGame from './AddGame/AddGame'
 import VisualizarGame from './VisualizarGame/VisualizarGame'
-import CreateProfile from "./Profile/Profile";
+import CreateProfile from "./Profile/createProfile";
 import ProfileList from "./Profile/SeeProfiles";
+import SeeProfile from "./Profile/seeProfile";
 import UpdateGame from "./UpdateGame/UpdateGame";
 import GenreList from "./readAllGenre/readAllGenre";
 import createGenre from "./readAllGenre/createGenre";
 import UpdateGenre from "./readAllGenre/updateGenre";
 import UserLogin from "./User/UserLogin";
+import UpdateProfile from "./Profile/UpdateProfile";
+import Admin from './Admin/Admin'
+import Favoritos from "./Favoritos/Favoritos";
 
 export default function App() {
     const isAuthenticated = Boolean(localStorage.getItem("JWT"));
@@ -29,26 +33,30 @@ export default function App() {
                         <Route exact path="/" component={Home}/>
 
                         <Route path="/login" exact={true} component={Login} />
-                        <Route path="/addUser" exact component={UserLogin} />
+                        <Route path="/usuario/create" exact component={UserLogin} />
+                        <Route path="/admin" component={Admin}/>
+                        <Route path="/favoritos" component={Favoritos}/>
 
-                        <GuardedRoute
+                        <GuardedRoute exact
                             path="/game"
                             component={AddGame}
                             auth={isAuthenticated}
                         />
 
                         <Route
-                            path="/gameList"
+                            path="/games/:id"
                             component={GamesList}
                         />
-                        <Route
+                        <Route exact={true}
                             path="/game/:id"
                             component={VisualizarGame}
                         />
-                        <Route path="/game/create" component={AddGame}/>
-                        <Route path="/gameUpdate/:id" component={UpdateGame}/>
-                        <Route path="/perfil" component={CreateProfile}/>
-                        <Route exact={true} path="/perfils" component={ProfileList}/>
+                        <Route exact path="/game/create" component={AddGame}/>
+                        <Route exact path="/game/update/:id" component={UpdateGame}/>
+                        <Route exact path="/perfil/create" component={CreateProfile}/>
+                        <Route exact path="/perfil/update/:id" component={UpdateProfile}/>
+                        <Route exact path="/perfil/:id" component={SeeProfile}/>
+                        <Route exact path="/perfis" component={ProfileList}/>
 
                         <Route path="/genre" component={GenreList}/>
                         <Route path="/genre/create" component={createGenre}/>

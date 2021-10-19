@@ -2,7 +2,8 @@ import React from "react";
 import { useState} from "react";
 import { useEffect } from "react";
 import "./VisualizarGame.css";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
+import {Card } from 'react-bootstrap'
 
 export default function VisualizarGame() {
     const {id} = useParams();
@@ -12,12 +13,11 @@ export default function VisualizarGame() {
     useEffect(() => {
         const loadData = async () => {
             const response = await fetch(`http://localhost:5000/game/${id}`);
-
             const result = await response.json();
             console.log(result)
             setGame(result);
         };
-
+        console.log("tô aqui")
         loadData();
     }, [id]);
 
@@ -27,12 +27,12 @@ export default function VisualizarGame() {
 
     return (
         <div className="Game">
-                <React.Fragment key={Game.id}>
-                    <iframe title={Game.id} src={Game.link_trailer}>trailer</iframe>
-                    <iframe title={Game.id} src={Game.link_gameplay}>Gameplay</iframe>
-                </React.Fragment>
-            ))}
-                
+            <h1 className="title">{Game.titulo}</h1>
+            <div key={Game.id}>
+                <iframe title={Game.id} src={Game.link_trailer} allowFullScreen>trailer</iframe>
+                <iframe title={Game.id} src={Game.link_gameplay} allowFullScreen>Gameplay</iframe>
+            </div> 
+            <p>{Game.descricao}</p>
         </div>
     );
 }

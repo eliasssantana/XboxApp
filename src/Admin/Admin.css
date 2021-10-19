@@ -1,0 +1,21 @@
+.botoes{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+}
+.botoes > button{
+    background-color: black;
+    width: 40%;
+    color: white;
+}
+.classificacao{
+    color: yellow;
+}
+
+.botoes > .btn{
+    background-color: black;
+    width: 40%;
+    color: white;
+    font-size: small;
+}

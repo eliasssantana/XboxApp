@@ -1,16 +1,18 @@
-.container{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+.body{
     width: 100vw;
+    height: 100vh;
+}
+.container{
+    width: 40px;
+    height: 30px;
     background-color: greenyellow;
 }
 
 img{
-    max-width: 30%;
-}
-li{
-    list-style: none;
-    text-decoration: none;
+    padding: .5rem;
+    height: 10rem;
+    width: 10rem;
+    object-fit: cover;
 }
 .loading{
     max-width: 30%;
@@ -23,4 +25,33 @@ button{
     width: 20%;
     border: none;
     color: white;
+}
+
+Link{
+    text-decoration: none;
+    color: white;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+
+.btn{
+    width: 50%;
+    background-color: black;
+}
+.card{
+    background-color: rgb(20, 117, 0);
+    display: flex;
+    justify-content: center;
+    box-shadow: 2px 2px black;
+}
+
+.classificacao{
+    color: yellow;
+}
+
+.titulo{
+    color: white;
+    font-size: 20px;
 }

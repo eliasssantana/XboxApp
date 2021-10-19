@@ -1,0 +1,21 @@
+.loading{
+    max-width: 30%;
+    display: block;
+    margin: auto;
+    margin-top: 130px;
+}
+
+.buttons{
+    width: 100%;
+    background-color: transparent;
+    display: flex;
+    justify-content: space-around;
+}
+
+.btn2{
+    background-color: green;
+    padding: 5px;
+    margin: 2px;
+    color: black;
+    font-size: medium;
+}

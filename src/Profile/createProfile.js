@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {Api} from '../Api/Api'
+import { useParams } from 'react-router-dom';
 
 function CreateProfile(props){
+    const {id} = useParams()
+    const [erro, setErro] = useState("");
     const handleSubmit = async event => {
         event.preventDefault();
 
@@ -11,21 +14,24 @@ function CreateProfile(props){
         const payload = {
             titulo,
             imagem,
-            usuarioId: 21
+            usuarioId: +id
         };
 
-        const response = await fetch(Api.createProfile, {
+        const response = await fetch("http://localhost:5000/profile", {
             method: "POST",
             headers: new Headers({
                 "Content-type": "application/json",
             }),
             body: JSON.stringify(payload),
         })
-
         const bodyResult = await response.json();
-
-        props.history.push("/perfils")
-
+        console.log(bodyResult)
+        if(response.status === 201){
+            props.history.push("/perfis")
+        }else{
+            setErro("Houve um erro")
+        }
+        
     };
 
     return (
@@ -40,6 +46,7 @@ function CreateProfile(props){
                     type="text"
                     id="titulo"
                     name="titulo"
+                    required
                 />
 
                 <br />
@@ -48,11 +55,18 @@ function CreateProfile(props){
                     imagem:
                 </label>
                 <br />
+                <input
+                    type="text"
+                    id="imagem"
+                    name="imagem"
+                    required
+                    onInvalid={() => erro}
+                />
 
                 <input
                     type="submit"
                     value="Adicionar"
-                    className="form__submit button button--success"
+                    
                 />
             </form>
         </div>

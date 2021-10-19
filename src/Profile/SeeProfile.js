@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { Api} from '../Api/Api'
 import ReactLoading from 'react-loading'
 import { Button } from 'react-bootstrap';
-// import "./GamesList.css"
+import "./SeeProfile.css"
 export default function SeeProfile(props){
     const {id} = useParams()
     const [dados,setDados] = useState({});
@@ -27,19 +27,19 @@ export default function SeeProfile(props){
         getProfile()
     }, [id]);
     if(loading){
-        return <ReactLoading type={"spinningBubbles"} color={"green"} height={'20%'} width={'20%'}/>
+        return <ReactLoading className="loading" type={"spinningBubbles"} color={"green"} height={'20%'} width={'20%'}/>
     }
     return(
         <div className="container">
-            <ul key={dados.id}>
-                <li><Link to={`/games/${dados.id}`}><img src={dados.imagem} alt={dados.titulo}/></Link></li>
-                <li>
-                    <div>
-                        <Button><Link to={`/perfil/update/${dados.id}`}>Editar Perfil</Link></Button>
-                        <Button onClick={() => handleDelete(dados.id)}>Delete</Button>
+            <div key={dados.id}>
+                <div><Link to={`/games/${dados.id}`}><img src={dados.imagem} alt={dados.titulo}/></Link></div>
+                <div>
+                    <div className="buttons">
+                        <Link className="btn2" to={`/perfil/update/${dados.id}`}>Editar Perfil</Link>
+                        <Button className="btn2" onClick={() => handleDelete(dados.id)}>Delete</Button>
                     </div>
-                </li>
-            </ul>
+                </div>
+            </div>
         </div> 
     )
 

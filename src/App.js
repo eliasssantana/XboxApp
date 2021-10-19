@@ -10,12 +10,13 @@ import AddGame from './AddGame/AddGame'
 import VisualizarGame from './VisualizarGame/VisualizarGame'
 import CreateProfile from "./Profile/createProfile";
 import ProfileList from "./Profile/SeeProfiles";
-import SeeProfile from "./Profile/seeProfile";
+import SeeProfile from "./Profile/SeeProfile";
 import UpdateGame from "./UpdateGame/UpdateGame";
 import GenreList from "./readAllGenre/readAllGenre";
 import createGenre from "./readAllGenre/createGenre";
 import UpdateGenre from "./readAllGenre/updateGenre";
 import UserLogin from "./User/UserLogin";
+import VerUsuarios from "./User/VerUsuarios";
 import UpdateProfile from "./Profile/UpdateProfile";
 import Admin from './Admin/Admin'
 import Favoritos from "./Favoritos/Favoritos";
@@ -34,8 +35,9 @@ export default function App() {
 
                         <Route path="/login" exact={true} component={Login} />
                         <Route path="/usuario/create" exact component={UserLogin} />
+                        <Route path="/usuarios" exact component={VerUsuarios}/>
                         <Route path="/admin" component={Admin}/>
-                        <Route path="/favoritos" component={Favoritos}/>
+                        <Route path="/favoritos/:id" component={Favoritos}/>
 
                         <GuardedRoute exact
                             path="/game"
@@ -43,17 +45,17 @@ export default function App() {
                             auth={isAuthenticated}
                         />
 
-                        <Route
+                        <Route exact
                             path="/games/:id"
                             component={GamesList}
                         />
-                        <Route exact={true}
+                        <Route exact 
                             path="/game/:id"
                             component={VisualizarGame}
                         />
                         <Route exact path="/game/create" component={AddGame}/>
                         <Route exact path="/game/update/:id" component={UpdateGame}/>
-                        <Route exact path="/perfil/create" component={CreateProfile}/>
+                        <Route exact path="/perfil/create/:id" component={CreateProfile}/>
                         <Route exact path="/perfil/update/:id" component={UpdateProfile}/>
                         <Route exact path="/perfil/:id" component={SeeProfile}/>
                         <Route exact path="/perfis" component={ProfileList}/>

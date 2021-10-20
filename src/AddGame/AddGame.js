@@ -1,8 +1,17 @@
 import { Api } from "../Api/Api";
 import React, {useState, useEffect}from "react";
+import Select from 'react-select'
 
 export default function AddGame(props) {
         const [generos, setGeneros] = useState([])
+        const [generosSelecionados, setGenerosSelecionados] = useState([]);
+
+    const handleSelect = e =>{
+        if(e.target.value === 'selected'){
+            setGenerosSelecionados(e.target.value);
+            console.log(generosSelecionados)
+        }
+    }
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -23,6 +32,8 @@ export default function AddGame(props) {
             link_trailer: trailer,
             link_gameplay: gameplay
         }
+
+
 
         const response = await fetch('http:localhost:5000/game', {
             method: "POST",
@@ -46,8 +57,12 @@ export default function AddGame(props) {
             setGeneros(dados)
         }
         loadGenre()
-    })
+    }, [])
     
+    const options = generos.map(genero => ({
+        value: genero.id,
+        label: genero.nome
+    }))
 
     return (
         <div className="adicionar">
@@ -140,12 +155,8 @@ export default function AddGame(props) {
                 />
                 <br/>
                 <br/>
-                <label htmlFor="generos">Selecione o genero:</label>
-                <select name="generos" id="generos" multiple required>
-                    {generos.map(genero =>{
-                        return <option value={genero.id}>{genero.nome}</option>
-                    })}
-                </select>
+
+                <Select options={options}/>
                 <input
                     type="submit"
                     value="Adicionar"

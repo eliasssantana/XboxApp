@@ -14,7 +14,7 @@ export default function VisualizarGame() {
         const loadData = async () => {
             const response = await fetch(`http://localhost:5000/game/${id}`);
             const result = await response.json();
-            console.log(result)
+            console.log(result.generos.map(i => i.nome))
             setGame(result);
         };
         console.log("tô aqui")
@@ -31,7 +31,10 @@ export default function VisualizarGame() {
             <div key={Game.id}>
                 <iframe title={Game.id} src={Game.link_trailer} allowFullScreen>trailer</iframe>
                 <iframe title={Game.id} src={Game.link_gameplay} allowFullScreen>Gameplay</iframe>
-            </div> 
+            </div>
+            {Game.generos.map(i =>(
+                <p>{i.nome}</p>
+            ))}
             <p>{Game.descricao}</p>
         </div>
     );

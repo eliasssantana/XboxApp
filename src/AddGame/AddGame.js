@@ -1,22 +1,21 @@
 import { Api } from "../Api/Api";
-import { useHistory } from "react-router";
-import React from "react";
+import React, {useState, useEffect}from "react";
 
-export default function AddGame() {
-
-    const history = useHistory()
-
+export default function AddGame(props) {
+        const [generos, setGeneros] = useState([])
     const handleSubmit = async (event) => {
         event.preventDefault();
 
+        const titulo = event.target.titulo.value;
         const capa = event.target.capa.value;
-        const descricao = event.target.decricao.value;
-        const ano = event.target.ano.value;
-        const nota = event.target.nota.value;
+        const descricao = event.target.descricao.value;
+        const ano = +event.target.ano.value;
+        const nota = +event.target.nota.value;
         const trailer = event.target.trailer.value;
         const gameplay = event.target.gameplay.value;
 
         const payload = {
+            titulo,
             capa,
             descricao,
             ano,
@@ -25,7 +24,7 @@ export default function AddGame() {
             link_gameplay: gameplay
         }
 
-        const response = await fetch(Api.addGameUrl, {
+        const response = await fetch('http:localhost:5000/game', {
             method: "POST",
             headers: new Headers({
                 "Content-type": "application/json",
@@ -34,15 +33,37 @@ export default function AddGame() {
         })
 
         const bodyResult = await response.json();
-
-        history.push("/game")
+        console.log(bodyResult)
+        if(response.status === 201){
+            window.location.reload()
+        }
 
     };
+    useEffect(() => {
+        const loadGenre = async() =>{
+            const response = await fetch('http://localhost:5000/genre');
+            const dados = await response.json();
+            setGeneros(dados)
+        }
+        loadGenre()
+    })
     
 
     return (
         <div className="adicionar">
             <form onSubmit={handleSubmit}>
+                <label htmlFor="titulo">
+                    Titulo:
+                </label>
+                <br />
+
+                <input
+                    type="text"
+                    id="titulo"
+                    name="titulo"
+                    required
+                />
+                <br/>
                 <label htmlFor="capa">
                     Capa:
                 </label>
@@ -52,6 +73,7 @@ export default function AddGame() {
                     type="text"
                     id="capa"
                     name="capa"
+                    required
                 />
 
                 <br />
@@ -65,6 +87,7 @@ export default function AddGame() {
                     type="text"
                     id="descricao"
                     name="descricao"
+                    required
                 />
 
                 <br />
@@ -76,6 +99,7 @@ export default function AddGame() {
                     type="number"
                     id="ano"
                     name="ano"
+                    required
                 />
 
                 <br />
@@ -87,6 +111,9 @@ export default function AddGame() {
                     type="number"
                     id="nota"
                     name="nota"
+                    max={10}
+                    min={0}
+                    required
                 />
                 <br/>
                 <label htmlFor="trailer">
@@ -98,6 +125,7 @@ export default function AddGame() {
                     type="text"
                     id="trailer"
                     name="trailer"
+                    required
                 />
                 <br/>
                 <label htmlFor="gameplay">
@@ -108,8 +136,16 @@ export default function AddGame() {
                     type="text"
                     id="gameplay"
                     name="gameplay"
+                    required
                 />
-
+                <br/>
+                <br/>
+                <label htmlFor="generos">Selecione o genero:</label>
+                <select name="generos" id="generos" multiple required>
+                    {generos.map(genero =>{
+                        return <option value={genero.id}>{genero.nome}</option>
+                    })}
+                </select>
                 <input
                     type="submit"
                     value="Adicionar"

@@ -41,6 +41,7 @@ function Admin() {
             <di>
                 <h1>Seja bem-vindo ao portal do administrador</h1>
             </di>
+            <Link to="/game/create/new"><button>Criar Game</button></Link>
             <div className="body">
             {dados.map(item =>(
             <div className="container">

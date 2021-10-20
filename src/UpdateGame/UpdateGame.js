@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { useParams, useHistory } from 'react-router';
+import { useParams} from 'react-router';
 import { Api } from '../Api/Api';
+import './UpdateGame.css'
 
-export default function UpdateGame() {
+export default function UpdateGame(props) {
     const [jogo,setJogo] = useState({});
-    const [loading, setLoading] = useState(true);
+    const [generos, setGeneros] = useState([])
     const {id} = useParams()
-    const history = useHistory()
 
 
     useEffect(() => {
@@ -15,9 +15,14 @@ export default function UpdateGame() {
             const dado = await response.json();
             console.log(dado)
             setJogo(dado);
-            setLoading(false);
         }
         loadData()
+        const loadGenre = async() =>{
+            const response = await fetch('http://localhost:5000/genre');
+            const dados = await response.json();
+            setGeneros(dados)
+        }
+        loadGenre()
     }, [id])
 
     const handleSubmit = async event => {
@@ -54,13 +59,9 @@ export default function UpdateGame() {
 
         const bodyResult = await response.json();
 
-        history.push("/game")
+        props.history.push("/game")
 
     };
-
-    if(!loading){
-        return <h1>Carregando...</h1>
-    }
 
     return (
         <div className="adicionar">
@@ -143,11 +144,11 @@ export default function UpdateGame() {
                     Gênero:
                 </label>
                 <br />
-                <input
-                    type="text"
-                    id="genero"
-                    name="genero"
-                />
+                <select>
+                    {generos.map(genero =>{
+                        return <option value={genero.id}>{genero.nome}</option>
+                    })}
+                </select>
                 <input
                     type="submit"
                     value="Adicionar"

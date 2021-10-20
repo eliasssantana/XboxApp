@@ -53,7 +53,7 @@ export default function App() {
                             path="/game/:id"
                             component={VisualizarGame}
                         />
-                        <Route exact path="/game/create" component={AddGame}/>
+                        <Route exact={true} path="/game/create/new" component={AddGame}/>
                         <Route exact path="/game/update/:id" component={UpdateGame}/>
                         <Route exact path="/perfil/create/:id" component={CreateProfile}/>
                         <Route exact path="/perfil/update/:id" component={UpdateProfile}/>

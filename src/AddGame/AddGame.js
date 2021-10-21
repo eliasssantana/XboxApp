@@ -5,12 +5,10 @@ import Select from 'react-select'
 export default function AddGame(props) {
         const [generos, setGeneros] = useState([])
         const [generosSelecionados, setGenerosSelecionados] = useState([]);
-
-    const handleSelect = e =>{
-        if(e.target.value === 'selected'){
-            setGenerosSelecionados(e.target.value);
-            console.log(generosSelecionados)
-        }
+        const [genresIds, setGenresIds] = useState([])
+           
+    const handleGenreChange = selectedOptions =>{
+            setGenresIds(selectedOptions.map(option=> option.value))
     }
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -30,7 +28,8 @@ export default function AddGame(props) {
             ano,
             nota_imdb: nota,
             link_trailer: trailer,
-            link_gameplay: gameplay
+            link_gameplay: gameplay,
+            genreConnectIds: genresIds
         }
 
 
@@ -156,7 +155,7 @@ export default function AddGame(props) {
                 <br/>
                 <br/>
 
-                <Select options={options}/>
+                <Select options={options} onChange={handle}/>
                 <input
                     type="submit"
                     value="Adicionar"
